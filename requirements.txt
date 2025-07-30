@@ -1,0 +1,9 @@
+fastapi==0.116.1
+uvicorn==0.35.0
+pydantic==2.11.7
+python-dotenv==1.1.1
+requests==2.32.4
+pypdf==5.9.0
+langchain==0.3.27
+langchain-google-genai==2.1.8
+langchain-astradb==0.6.0
