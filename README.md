@@ -1,6 +1,6 @@
-# LLM-Powered Intelligent Query–Retrieval System (FastAPI)
+# Policy-GPT Intelligent Query–Retrieval System - API
 
-This project is a FastAPI-based API designed for a hackathon. It implements an intelligent query-retrieval system that processes documents (PDFs) from a URL, embeds their content using Google's Gemini models, stores them in an AstraDB vector store, and answers natural language questions based on the document's context.
+This project is a FastAPI-based API designed for implementing an intelligent query-retrieval system that processes documents (PDFs) from a URL, embeds their content using Google's Gemini models, stores them in an AstraDB vector store, and answers natural language questions based on the document's context.
 
 ## ✨ Tech Stack
 
@@ -53,8 +53,8 @@ Create a `.env` file in the root of the project. Populate it with your credentia
 GOOGLE_API_KEY="YOUR_GOOGLE_API_KEY"
 ASTRA_DB_API_ENDPOINT="YOUR_ASTRA_DB_API_ENDPOINT"
 ASTRA_DB_APPLICATION_TOKEN="YOUR_ASTRA_DB_APPLICATION_TOKEN"
-ASTRA_DB_COLLECTION_NAME="hackathon_rag_collection"
-API_BEARER_TOKEN="b5f1351c7b62cbbf4f7b89c552daf9e8b96ad315e1380661362c5b40545d8a6a"
+ASTRA_DB_COLLECTION_NAME="collection_name"
+API_BEARER_TOKEN="eyJhbGciOiJSUzI1NiIsImtpZCI6IjY2YjQ0Yz"
 ```
 
 ### 6. Run the Application
@@ -96,7 +96,7 @@ curl -X POST "http://localhost:8000/api/v1/hackrx/run" \
 -H "Content-Type: application/json" \
 -H "Authorization: Bearer b5f1351c7b62cbbf4f7b89c552daf9e8b96ad315e1380661362c5b40545d8a6a" \
 -d '{
-    "documents": "[https://hackrx.blob.core.windows.net/assets/policy.pdf?sv=2023-01-03&st=2025-07-04T09%3A11%3A24Z&se=2027-07-05T09%3A11%3A00Z&sr=b&sp=r&sig=N4a9OU0w0QXO6AOIBiu4bpl7AXvEZogeT%2FjUHNO7HzQ%3D](https://hackrx.blob.core.windows.net/assets/policy.pdf?sv=2023-01-03&st=2025-07-04T09%3A11%3A24Z&se=2027-07-05T09%3A11%3A00Z&sr=b&sp=r&sig=N4a9OU0w0QXO6AOIBiu4bpl7AXvEZogeT%2FjUHNO7HzQ%3D)",
+    "documents": "[https://website.com/assets/policy.pdf",
     "questions": [
         "What is the grace period for premium payment under the National Parivar Mediclaim Plus Policy?",
         "Does this policy cover maternity expenses, and what are the conditions?"
