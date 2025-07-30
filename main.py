@@ -1,5 +1,4 @@
 from fastapi import FastAPI, Depends, HTTPException, status
-from pydantic import BaseModel, Field
 from fastapi.middleware.cors import CORSMiddleware
 from services.load_docs import load_document_from_url
 from services.chunks import get_text_chunks
@@ -90,10 +89,10 @@ async def run_submission(payload: QueryRequest):
 
         answers = []
         logger.info("Processing questions...")
-        for question in questions:
+        for i, question in enumerate(questions):
             # 5. Clause Retrieval (Similarity Search)
             context_docs = vector_store.similarity_search(question)
-            print(f"Context documents retrieved: {len(context_docs)} for question '{question}'")
+            print(f"Context documents retrieved: {len(context_docs)} for question '{i+1}'")
             # 6. Logic Evaluation (LLM)
             response = chain.invoke(
                 {
