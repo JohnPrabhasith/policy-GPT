@@ -1,3 +1,4 @@
+import random
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_astradb import AstraDBVectorStore
 from dotenv import load_dotenv
@@ -22,12 +23,12 @@ JINA_API_KEY = os.environ['JINA_API_KEY']
 
 vectorize_options = VectorServiceOptions(
     provider="jinaAI",
-    model_name="jina-embeddings-v3",
+    model_name="jina-embeddings-v2-base-en",
     authentication={
         "providerKey": JINA_API_KEY,
     }
 )
-
+COLLECTION_NAME += f'v1_{random.randint(1000, 9999)}'
 def get_vector_store(documents: list) -> AstraDBVectorStore:
     try:
         vstore = AstraDBVectorStore(
