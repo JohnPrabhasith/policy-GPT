@@ -17,7 +17,7 @@ JINA_API_KEY = os.getenv("JINA_API")
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-model = ChatGoogleGenerativeAI(model="gemini-2.5-pro", temperature=0.3, api_key=GOOGLE_API_KEY)
+model = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.3, api_key=GOOGLE_API_KEY)
 
 prompt = PromptTemplate(
     template=initial_prompt, 
@@ -31,7 +31,7 @@ def get_conversational_chain(vector_store: Document) -> create_retrieval_chain:
         search_type="similarity_score_threshold",
         search_kwargs={"k": 10, "score_threshold": 0.5}
     )
-    compressor = JinaRerank(jina_api_key=JINA_API_KEY, model= "jina-reranker-v2-base-multilingual")
+    compressor = JinaRerank(jina_api_key=JINA_API_KEY, model= "jina-reranker-v1-base-en")
     compression_retriever = ContextualCompressionRetriever(
         base_compressor=compressor, base_retriever=retriever
     )
