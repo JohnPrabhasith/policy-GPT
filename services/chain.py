@@ -31,7 +31,7 @@ def get_conversational_chain(vector_store: Document) -> create_retrieval_chain:
         search_type="similarity_score_threshold",
         search_kwargs={"k": 10, "score_threshold": 0.5}
     )
-    compressor = JinaRerank(jina_api_key=JINA_API_KEY, model= "jina-reranker-v1-base-en")
+    compressor = JinaRerank(jina_api_key=JINA_API_KEY, model= "jina-reranker-v2-base-multilingual")
     compression_retriever = ContextualCompressionRetriever(
         base_compressor=compressor, base_retriever=retriever
     )
