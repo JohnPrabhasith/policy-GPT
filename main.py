@@ -29,6 +29,9 @@ def run_submission():
     """
     Processes a document from a URL and answers questions about it.
     """
+    token_check = verify_token()
+    if token_check is not True:
+        return token_check  
     try:
         payload = request.get_json()
         doc_url = payload["documents"]

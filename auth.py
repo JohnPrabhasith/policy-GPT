@@ -1,22 +1,20 @@
 import os
-from fastapi import Header, HTTPException, status
+from flask import request, jsonify
 
-async def verify_token(authorization: str = Header(...)):
+def verify_token():
     """
-    FastAPI dependency to verify the bearer token.
+    Flask function to verify the Bearer token from the Authorization header.
+    Returns True if valid, otherwise returns a Flask response object with an error.
     """
     expected_token = os.getenv("API_BEARER_TOKEN")
-    
-    if not authorization.startswith("Bearer "):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid Authorization header format. Use 'Bearer <token>'.",
-        )
-    
-    token = authorization.split(" ")[1]
-    
-    if not token or token != expected_token:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Invalid or expired token!",
-        )
+    auth_header = request.headers.get("Authorization")
+
+    if not auth_header or not auth_header.startswith("Bearer "):
+        return jsonify({"error": "Invalid or missing Authorization header. Use 'Bearer <token>'."}), 401
+
+    token = auth_header.split(" ")[1]
+
+    if token != expected_token:
+        return jsonify({"error": "Invalid or expired token!"}), 403
+
+    return True  # Token is valid

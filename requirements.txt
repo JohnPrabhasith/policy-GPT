@@ -8,3 +8,4 @@ pypdf==5.9.0
 langchain==0.3.27
 langchain-google-genai==2.1.8
 langchain-astradb==0.6.0
+fastapi

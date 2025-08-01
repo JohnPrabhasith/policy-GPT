@@ -3,6 +3,8 @@ from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_astradb import AstraDBVectorStore
 from dotenv import load_dotenv
 import os
+# from astrapy.info import VectorServiceOptions
+from langchain_community.embeddings import JinaEmbeddings
 
 load_dotenv()
 
@@ -18,25 +20,30 @@ GOOGLE_API_KEY = os.getenv("GEMINI_API_KEY")
 #     google_api_key=GOOGLE_API_KEY
 # )
 
-from astrapy.info import VectorServiceOptions
-JINA_API_KEY = os.environ['JINA_API_KEY']
+JINA_API_KEY = os.environ['JINA_API']
 
-vectorize_options = VectorServiceOptions(
-    provider="jinaAI",
+
+embedding = JinaEmbeddings(
+    jina_api_key=JINA_API_KEY,
     model_name="jina-embeddings-v2-base-en",
-    authentication={
-        "providerKey": JINA_API_KEY,
-    }
 )
-COLLECTION_NAME += f'v1_{random.randint(1000, 9999)}'
+
+# vectorize_options = VectorServiceOptions(
+#     provider="jinaAI",
+#     model_name="jina-embeddings-v2-base-en",
+#     authentication={
+#         "providerKey": JINA_API_KEY,
+#     }
+# )
+COLLECTION_NAME += f'_{random.randint(1000, 9999)}'
 def get_vector_store(documents: list) -> AstraDBVectorStore:
     try:
         vstore = AstraDBVectorStore(
             collection_name=COLLECTION_NAME,
             token=ASTRA_DB_APPLICATION_TOKEN,
             api_endpoint=ASTRA_DB_API_ENDPOINT,
-            # embedding=embedding
-            collection_vector_service_options=vectorize_options
+            embedding=embedding
+            # collection_vector_service_options=vectorize_options
         )
         vstore.add_documents(documents)
         return vstore
