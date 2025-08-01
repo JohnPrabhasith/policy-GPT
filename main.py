@@ -24,7 +24,7 @@ CORS(app)  # Enable CORS for all origins
 def root():
     return jsonify({"message": "LLM-Powered Intelligent Query-Retrieval System is running!"})
 
-@app.route("/api/v1/hackrx/run", methods=["POST"])
+@app.route("/hackrx/run", methods=["POST"])
 def run_submission():
     """
     Processes a document from a URL and answers questions about it.
