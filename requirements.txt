@@ -8,3 +8,4 @@ langchain-community
 langchain-groq
 python-docx 
 pymupdf
+rich
